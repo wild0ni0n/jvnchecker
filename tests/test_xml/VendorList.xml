@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<Result 
+version="3.3" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://example.com/myjvn/Results" 
+xmlns:mjres="http://example.com/myjvn/Results" 
+xmlns:status="http://example.com/myjvn/Status" 
+xsi:schemaLocation="http://example.com/myjvn/Results https://example.com/schema/results_3.3.xsd">
+    <VendorInfo xml:lang="ja">
+      <Vendor vname="vendortest" cpe="cpe:/:pointinside" vid="12345"/>
+      <Vendor vname="vendortest2" cpe="cpe:/:syspass" vid="12346"/>
+      <Vendor vname="vendortest3" cpe="cpe:/:%240.99_kindle_books_project" vid="12347"/>
+    </VendorInfo>
+    <status:Status version="3.3" method="getVendorList" lang="ja" retCd="0" retMax="10000" errCd="" errMsg="" totalRes="18188" totalResRet="10" firstRes="1" feed="hnd" startItem="1" maxCountItem="10"/>
+  </Result>
+

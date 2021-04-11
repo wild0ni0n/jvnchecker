@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<rdf:RDF 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://purl.org/rss/1.0/" 
+xmlns:rss="http://purl.org/rss/1.0/" 
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+xmlns:dc="http://purl.org/dc/elements/1.1/" 
+xmlns:dcterms="http://purl.org/dc/terms/" 
+xmlns:sec="http://example.com/rss/mod_sec/3.0/" 
+xmlns:marking="http://data-marking.mitre.org/Marking-1" 
+xmlns:tlpMarking="http://data-marking.mitre.org/extensions/MarkingStructure#TLP-1" 
+xmlns:status="http://example.com/myjvn/Status" 
+xsi:schemaLocation="http://purl.org/rss/1.0/ https://example.com/schema/jvnrss_3.2.xsd http://example.com/myjvn/Status https://example.com/schema/status_3.3.xsd" 
+xml:lang="ja">
+    <channel rdf:about="https://example.com/apis/myjvn">
+      <title>JVNDB　脆弱性対策情報</title>
+      <link>https://example.com/apis/myjvn</link>
+      <description>JVNDB　脆弱性対策情報</description>
+      <dc:date>2021-03-27T18:22:07+09:00</dc:date>
+      <dcterms:issued/>
+      <dcterms:modified>2021-03-27T18:22:07+09:00</dcterms:modified>
+      <sec:handling>
+        <marking:Marking>
+          <marking:Marking_Structure xsi:type="tlpMarking:TLPMarkingStructureType" marking_model_name="TLP" marking_model_ref="http://www.us-cert.gov/tlp/" color="WHITE"/>
+        </marking:Marking>
+      </sec:handling>
+      <items>
+        <rdf:Seq>
+          <rdf:li rdf:resource="https://example.com/ja/contents/1111/JVNDB-1111-111111.html"/>
+          <rdf:li rdf:resource="https://example.com/ja/contents/2222/JVNDB-2222-222222.html"/>
+        </rdf:Seq>
+      </items>
+    </channel>
+    <item rdf:about="https://example.com/ja/contents/1111/JVNDB-1111-111111.html">
+      <title>タイトルテスト</title>
+      <link>https://example.com/ja/contents/1111/JVNDB-1111-111111.html</link>
+      <description>概要概要概要</description>
+      <dc:creator>開発者</dc:creator>
+      <sec:identifier>JVNDB-1111-111111</sec:identifier>
+      <sec:references source="CVE" id="CVE-3333-33333">http://example.com/view/vuln/detail?vulnId=CVE-3333-33333</sec:references>
+      <sec:references source="CVE" id="CVE-4444-44444">http://example.com/view/vuln/detail?vulnId=CVE-4444-44444</sec:references>
+      <sec:references source="CVE" id="CVE-5555-55555">http://example.com/view/vuln/detail?vulnId=CVE-5555-55555</sec:references>
+      <sec:references source="JVN" id="JVN#12345678">https://example.com/jp/JVN12345678/index.html</sec:references>
+      <sec:references id="CWE-78" title="OSコマンドインジェクション(CWE-78)">https://example.com/ja/cwe/CWE-78.html</sec:references>
+      <sec:references id="CWE-79" title="クロスサイトスクリプティング(CWE-79)">https://example.com/ja/cwe/CWE-79.html</sec:references>
+      <sec:cpe version="2.2" vendor="ベンダー名" product="baserCMS">cpe:/a:test:test</sec:cpe>
+      <sec:cvss score="7.2" severity="High" vector="CVSS:3.0/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H" version="3.0" type="Base"/>
+      <sec:cvss score="6.5" severity="Medium" vector="AV:N/AC:L/Au:S/C:P/I:P/A:P" version="2.0" type="Base"/>
+      <dc:date>2021-03-26T12:04:57+09:00</dc:date>
+      <dcterms:issued>2021-03-26T12:04:57+09:00</dcterms:issued>
+      <dcterms:modified>2021-03-26T12:04:57+09:00</dcterms:modified>
+    </item>
+    <item rdf:about="https://example.com/ja/contents/2222/JVNDB-2222-222222.html">
+      <title>タイトルテスト2</title>
+      <link>https://example.com/ja/contents/2021/JVNDB-2222-222222.html</link>
+      <description>概要概要概要2</description>
+      <dc:creator>開発者2</dc:creator>
+      <sec:identifier>JVNDB-2222-222222</sec:identifier>
+      <sec:references source="CVE" id="CVE-3333-33333">http://example.com/view/vuln/detail?vulnId=CVE-3333-33333</sec:references>
+      <sec:references source="CVE" id="CVE-4444-44444">http://example.com/view/vuln/detail?vulnId=CVE-4444-44444</sec:references>
+      <sec:references source="CVE" id="CVE-5555-55555">http://example.com/view/vuln/detail?vulnId=CVE-5555-55555</sec:references>
+      <sec:references id="CWE-250" title="不要な特権による実行(CWE-250)">https://cwe.mitre.org/data/definitions/250.html</sec:references>
+      <sec:references id="CWE-259" title="ハードコードされたパスワードの使用(CWE-259)">https://cwe.mitre.org/data/definitions/259.html</sec:references>
+      <sec:references id="CWE-326" title="不適切な暗号強度(CWE-326)">https://cwe.mitre.org/data/definitions/326.html</sec:references>
+      <sec:references id="CWE-94" title="コード・インジェクション(CWE-94)">https://example.com/ja/cwe/CWE-94.html</sec:references>
+      <sec:cvss score="9.8" severity="Critical" vector="CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H" version="3.0" type="Base"/>
+      <dc:date>2021-03-25T16:23:11+09:00</dc:date>
+      <dcterms:issued>2021-03-25T16:23:11+09:00</dcterms:issued>
+      <dcterms:modified>2021-03-25T16:23:11+09:00</dcterms:modified>
+    </item>
+    <status:Status version="3.3" method="getVulnOverviewList" lang="ja" retCd="0" retMax="50" errCd="" errMsg="" totalRes="14" totalResRet="10" firstRes="1" feed="hnd" startItem="1" maxCountItem="10"/>
+  </rdf:RDF>
+

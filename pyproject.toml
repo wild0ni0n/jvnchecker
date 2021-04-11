@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "jvnchecker"
+version = "0.1.0"
+description = "`jvnchecker` searches vendors and vulnerabilities using JVNDB from cli."
+authors = ["wild0ni0n"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2.25.1"
+lxml = "^4.6.3"
+
+[tool.poetry.scripts]
+jvnchecker = "jvnchecker.jvnchecker:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
