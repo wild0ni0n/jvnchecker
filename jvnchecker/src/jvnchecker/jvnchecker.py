@@ -15,14 +15,14 @@ def argparse_setup():
     parser_vendor.add_argument('--cpe', help="CPEを入力します")
     parser_vendor.set_defaults(handler=command_vendor)
 
-    parser_product = subparsers.add_parser('product', help='製品名一覧を検索します。CPE、ベンダーID、プロダクトIDはいれずか1つのみ指定してください')
+    parser_product = subparsers.add_parser('product', help='製品名一覧を検索します。CPE、ベンダーID、プロダクトIDを指定する場合は、いれずか1つのみ指定してください')
     parser_product.add_argument('-k', '--keyword', help="キーワード検索を行います。ワイルドカード \"*\" 指定不可 (\"*\"を指定した場合、\"*\"を含む項目をフィルタリング) 大文字／小文字区別なし", type=str, default="")
     parser_product.add_argument('--cpe', help="CPEを入力します")
     parser_product.add_argument('--vid', help="ベンダーIDを入力します")
     parser_product.add_argument('--pid', help="プロダクトIDを入力します")
     parser_product.set_defaults(handler=command_product)
 
-    parser_overview = subparsers.add_parser('overview', help="脆弱性概要一覧を検索します。CPE、ベンダーID、プロダクトIDはいれずか1つのみ指定してください")
+    parser_overview = subparsers.add_parser('overview', help="脆弱性概要一覧を検索します。CPE、ベンダーID、プロダクトIDを指定する場合は、いれずか1つのみ指定してください")
     parser_overview.add_argument('-k', '--keyword', help="キーワード検索を行います。ワイルドカード \"*\" 指定不可 (\"*\"を指定した場合、\"*\"を含む項目をフィルタリング) 大文字／小文字区別なし", type=str, default="")
     parser_overview.add_argument('--cpe', help="CPEを入力します")
     parser_overview.add_argument('--vid', help="ベンダーIDを入力します")
