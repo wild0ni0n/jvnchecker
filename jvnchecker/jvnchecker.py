@@ -2,9 +2,8 @@
 import argparse
 from lxml import html
 import requests
-import json
 from pprint import pprint
-from typing import List, Tuple
+from typing import List
 from dataclasses import dataclass
 from operator import attrgetter
 
@@ -124,7 +123,8 @@ def argparse_setup():
     subparsers = parser.add_subparsers()
 
     parser_vendor = subparsers.add_parser('vendor', help="ベンダー名からベンダーIDを検索します")
-    parser_vendor.add_argument('VendorName', help="ベンダー名を入力します")
+    parser_vendor.add_argument('--name', help="ベンダー名を入力します")
+    parser_vendor.add_argument('--cpe', help="ベンダーCPEを入力します")
     parser_vendor.set_defaults(handler=command_vendor)
 
     parser_list = subparsers.add_parser('list', help="脆弱性概要の一覧を取得し、影響するバージョンを返します")
@@ -162,8 +162,13 @@ def create_jvnurl(jvnid):
     return "https://jvndb.jvn.jp/ja/contents/{}/{}.html".format(jvnid[6:10], jvnid)
 
 def command_vendor(args):
-    vendor_name = args.VendorName
+    if not args.name and not args.cpe:
+        print("ベンダーの検索にはベンダー名またはCPEを指定してください")
+        exit()
+    vendor_name = args.name
+    vendor_cpe = args.cpe
     vendor_list_params['keyword'] = vendor_name
+    vendor_list_params['cpeName'] = vendor_cpe
     tree = get_xml_tree(JVN_URL, vendor_list_params, args.vervose)
     vendor_items = tree.xpath('//vendorinfo/vendor')
    
@@ -182,22 +187,37 @@ def command_list(args):
         exit()
     overview_list_params['vendorId'] = args.id
     overview_list_params['keyword'] = args.keyword
-    tree = get_xml_tree(JVN_URL, overview_list_params, args.vervose)
-    identifiers = tree.xpath('//item/identifier/text()')
-    
-    items = []
-    for identifier in identifiers:
-        vuln_detail_info_params['vulnId'] = identifier
-        tree = get_xml_tree(JVN_URL, vuln_detail_info_params)
-        affected_items = tree.xpath('//vulinfo/vulinfodata/affected/affecteditem')
 
-        items.append([
-            OutputItem('JVNDB_ID', identifier, 0),
-            OutputItem('Name', affected_items[0].xpath('name/text()')[0], 1),
-            OutputItem('Version', affected_items[0].xpath('versionnumber/text()')[0], 2)
-        ])
-    
-    output(items, args.json, args.output)
+    def get_list(start_item=1):
+        overview_list_params['startItem'] = start_item
+        tree = get_xml_tree(JVN_URL, overview_list_params, args.vervose)
+        count_item = len(tree.xpath('//rdf/item', namespaces={'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'}))
+        
+        identifiers = tree.xpath('//item/identifier/text()')
+        
+        items = []
+        for identifier in identifiers:
+            vuln_detail_info_params['vulnId'] = identifier
+            tree = get_xml_tree(JVN_URL, vuln_detail_info_params)
+            affected_items = tree.xpath('//vulinfo/vulinfodata/affected/affecteditem')
+
+            affected = [OutputItem('JVNDB_ID', identifier, 0)]
+            print(f'JVNDB_ID: {identifier}')
+            for affected_item in affected_items:
+                print(f'    Name: {"".join(affected_item.xpath("name/text()"))}')
+                print(f'    Version: {"".join(affected_item.xpath("versionnumber/text()"))}')
+                #affected.append([
+                #    OutputItem('Name', affected_item.xpath('name/text()'), 1),
+                #    OutputItem('Version', affected_item.xpath('versionnumber/text()'), 2)
+                #])
+            items.append(affected_item)
+        
+        #print(items)
+        #output(items, args.json, args.output)
+        if count_item == 50 and start_item < 10:
+            get_list(start_item+50)
+
+    get_list(1)
 
 def command_detail(args):
     vuln_detail_info_params['vulnId'] = args.JVNDB_ID
