@@ -2,10 +2,6 @@ from dataclasses import dataclass
 from enum import Enum
 
 
-class APIFormat(Enum):
-    XML  = 'xml'
-    JSON = 'json'
-
 class APILanguage(Enum):
     JA = 'ja'
     EN = 'en'
@@ -29,7 +25,7 @@ class AlertListParameters:
     date_published: int         = None
     date_first_published: int   = None
     cpe_name: str               = ''
-    ft: APIFormat               = APIFormat.JSON
+    ft: str                     = 'json'
 
 @dataclass
 class VendorListParameters:
